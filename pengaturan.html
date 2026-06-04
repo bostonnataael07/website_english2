@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - English Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #f4f7fe; display: flex; height: 100vh; overflow: hidden; color: #2b3674; }
+        
+        /* --- SIDEBAR KIRI --- */
+        .sidebar { width: 260px; background: white; padding: 30px 20px; display: flex; flex-direction: column; border-right: 1px solid #e0e5f2; z-index: 10; }
+        .logo-area { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 700; color: #1565c0; margin-bottom: 40px; padding-left: 10px; }
+        
+        .nav-menu { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; }
+        .nav-item { padding: 12px 15px; border-radius: 10px; color: #a3aed1; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 15px; transition: 0.3s; text-decoration: none; }
+        .nav-item:hover { background: #f4f7fe; color: #2b3674; }
+        .nav-item.active { background: #e9e3ff; color: #4318ff; font-weight: 600; }
+        .nav-item i { font-size: 1.1rem; width: 20px; text-align: center; }
+
+        /* BANNER DONASI */
+        .donation-banner { background: white; border-radius: 15px; padding: 20px; text-align: left; margin-top: auto; border: 1px solid #f0f0f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .donation-header-title { color: #555; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .donation-header-title i { color: #f06292; }
+        .donation-banner h4 { font-size: 0.95rem; margin-bottom: 8px; color: #2b3674; line-height: 1.3; }
+        .donation-banner p { font-size: 0.75rem; color: #8f9bba; margin-bottom: 15px; line-height: 1.5; }
+        .btn-donate { background: #f06292; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 0.8rem; cursor: pointer; width: 100%; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-donate:hover { background: #e91e63; }
+
+        /* --- MAIN CONTENT KANAN --- */
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .header h1 { font-size: 1.6rem; color: #2b3674; }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .btn-kembali { padding: 8px 15px; border: 1px solid #ef5350; color: #ef5350; background: transparent; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: 0.3s; text-decoration: none; }
+        .btn-kembali:hover { background: #ffebee; }
+
+        /* CARD PENGATURAN */
+        .settings-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.02); max-width: 600px; }
+        .settings-section { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; }
+        .settings-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .section-title { font-size: 1rem; font-weight: 700; color: #2b3674; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.85rem; color: #8f9bba; font-weight: 500; margin-bottom: 8px; }
+        .form-control { width: 100%; padding: 10px 15px; border: 1px solid #e0e5f2; border-radius: 10px; font-size: 0.9rem; color: #2b3674; outline: none; transition: 0.3s; }
+        .form-control:focus { border-color: #4318ff; }
+        
+        .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+        .setting-info h4 { font-size: 0.9rem; color: #2b3674; font-weight: 600; }
+        .setting-info p { font-size: 0.8rem; color: #8f9bba; }
+        
+        .toggle-switch { position: relative; width: 42px; height: 22px; background: #e0e5f2; border-radius: 20px; cursor: pointer; transition: 0.3s; }
+        .toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: white; border-radius: 50%; transition: 0.3s; }
+        .toggle-switch.active { background: #4318ff; }
+        .toggle-switch.active::after { left: 22px; }
+
+        .btn-save { background: #4318ff; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .btn-save:hover { background: #3311cc; }
+
+        /* MODAL DONASI */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(3px); }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 20px; padding: 25px; position: relative; transform: translateY(20px); transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h3 { font-size: 1.1rem; color: #111; margin: 0; }
+        .close-btn { background: transparent; border: none; font-size: 1.2rem; color: #8f9bba; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: #ef5350; }
+        .qris-container { text-align: center; margin-bottom: 15px; }
+        .qris-image-box { border: 1px solid #e0e5f2; border-radius: 15px; padding: 15px; display: inline-block; background: white; }
+        .qris-image-box img { width: 180px; height: 180px; }
+        .qris-badge { background: white; border: 1px solid #e0e5f2; color: #555; font-size: 0.75rem; font-weight: 600; padding: 4px 15px; border-radius: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-area">
+            <i class="fas fa-graduation-cap"></i> English Master
+        </div>
+        <div class="nav-menu">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <div style="height: 15px;"></div>
+            <a href="progress.html" class="nav-item"><i class="fas fa-chart-line"></i> Progress</a>
+            <a href="profil.html" class="nav-item"><i class="far fa-user"></i> Profil Saya</a>
+            <a href="pengaturan.html" class="nav-item active"><i class="fas fa-cog"></i> Pengaturan</a>
+            <a href="home.html" class="nav-item" style="color: #ef5350;"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+        </div>
+
+        <div class="donation-banner">
+            <div class="donation-header-title"><i class="fas fa-heart"></i> Donasi / Support Project</div>
+            <h4>Dukung Pengembangan<br>English Master</h4>
+            <button class="btn-donate" onclick="bukaModalDonasi()">Dukung Sekarang</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Pengaturan Sistem</h1>
+            <a href="dashboard.html" class="btn-kembali"><i class="fas fa-sign-out-alt fa-flip-horizontal"></i> Kembali ke Dashboard</a>
+        </div>
+
+        <div class="settings-card">
+            <div class="settings-section">
+                <div class="section-title"><i class="fas fa-user-cog"></i> Pengaturan Akun</div>
+                <div class="form-group">
+                    <label>Nama Pengguna</label>
+                    <input type="text" class="form-control" id="inputNama" placeholder="Masukkan nama baru...">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title"><i class="far fa-bell"></i> Notifikasi & Fitur</div>
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <h4>Pengingat Belajar</h4>
+                        <p>Kirim pemberitahuan jika belum belajar hari ini</p>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <h4>Mode Gelap (Dark Mode)</h4>
+                        <p>Ubah tema aplikasi menjadi gelap</p>
+                    </div>
+                    <div class="toggle-switch" onclick="alert('Tema gelap akan segera hadir di update selanjutnya Lek!')"></div>
+                </div>
+            </div>
+
+            <button class="btn-save" onclick="simpanPengaturan()">Simpan Perubahan</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="donationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Dukung Pengembangan</h3>
+                <button class="close-btn" onclick="tutupModalDonasi()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="qris-container">
+                <div class="qris-image-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QRIS">
+                </div>
+                <br><br>
+                <span class="qris-badge">QRIS</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function bukaModalDonasi() { document.getElementById('donationModal').classList.add('active'); }
+        function tutupModalDonasi() { document.getElementById('donationModal').classList.remove('active'); }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let savedName = localStorage.getItem('namaUser') || 'boston';
+            document.getElementById('inputNama').value = savedName;
+        });
+
+        function simpanPengaturan() {
+            let namaBaru = document.getElementById('inputNama').value.trim();
+            if(namaBaru) {
+                localStorage.setItem('namaUser', namaBaru);
+                alert('Pengaturan berhasil disimpan Lek! 👍');
+                window.location.href = 'profil.html';
+            } else {
+                alert('Nama tidak boleh kosong!');
+            }
+        }
+    </script>
+</body>
+</html>

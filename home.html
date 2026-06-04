@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           RESET & GLOBAL STYLES
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f0f5fa; /* Warna biru muda latar belakang */
+            background-image: radial-gradient(circle at top right, #e1ecf7, transparent),
+                              radial-gradient(circle at bottom left, #e1ecf7, transparent);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            color: #333;
+        }
+
+        /* =========================================
+           HEADER & TYPOGRAPHY
+           ========================================= */
+        .header-logo {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #0d47a1;
+            font-size: 1.2rem;
+        }
+
+        .header-logo i {
+            font-size: 1.8rem;
+        }
+
+        .main-title-container {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+
+        .main-title-container h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: -5px;
+        }
+
+        .main-title-container h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #0d47a1; /* Biru Tua */
+            margin-bottom: 10px;
+        }
+
+        .main-title-container p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* =========================================
+           KARTU LOGIN (MAIN CARD)
+           ========================================= */
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(13, 71, 161, 0.08);
+            width: 100%;
+            max-width: 450px;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0d47a1;
+            margin-bottom: 20px;
+        }
+
+        .icon-circle {
+            background-color: #e3f2fd;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: #1976d2;
+        }
+
+        .custom-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            margin-bottom: 25px;
+        }
+
+        .custom-input:focus {
+            border-color: #0d47a1;
+            box-shadow: 0 0 0 4px rgba(13, 71, 161, 0.1);
+        }
+
+        .custom-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .custom-btn:hover {
+            background-color: #0d47a1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13, 71, 161, 0.3);
+        }
+
+        /* =========================================
+           FOOTER & DEKORASI (PLACEHOLDER 3D)
+           ========================================= */
+        .footer-text {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* Tempat naruh gambar PNG 3D kamu nanti */
+        .decor-left {
+            position: absolute;
+            left: 5%;
+            bottom: 15%;
+            width: 250px;
+        }
+
+        .decor-right {
+            position: absolute;
+            right: 8%;
+            bottom: 20%;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>English Master</span>
+    </div>
+
+    <div class="main-title-container">
+        <h2>Welcome to</h2>
+        <h1>English Master</h1>
+        <p>Belajar Bahasa Inggris jadi lebih mudah dan menyenangkan!</p>
+    </div>
+
+    <div class="login-card">
+        <div class="input-label">
+            <div class="icon-circle">
+                <i class="fas fa-user"></i>
+            </div>
+            Masukkan Nama Kamu
+        </div>
+        <input type="text" id="username" class="custom-input" placeholder="Ketik nama kamu di sini...">
+        <button class="custom-btn" onclick="startLearning()">
+            Mulai Belajar <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <div class="footer-text">
+        Belajar hari ini, menguasai masa depan ✨
+    </div>
+
+    <img src="" alt="" class="decor-left">
+    
+    <img src="" alt="" class="decor-right">
+
+    <script>
+        function startLearning() {
+            const nama = document.getElementById('username').value.trim();
+            
+            if(!nama) {
+                alert("Isi nama dulu dong, Bosku!");
+                return;
+            }
+            
+            // Simpan nama ke localStorage
+            localStorage.setItem('namaUser', nama);
+            
+            // Pindah ke halaman dashboard
+            location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

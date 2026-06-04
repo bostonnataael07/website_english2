@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rumus Grammar - English Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafcff; display: flex; flex-direction: column; height: 100vh; color: #333; overflow: hidden; }
+        
+        /* HEADER UNGU */
+        .top-header { background: #5e35b1; color: white; padding: 15px 40px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; }
+        .btn-back { background: transparent; border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; width: 30px; height: 30px; }
+        .btn-back:hover { transform: translateX(-5px); }
+        .page-title { font-size: 1.2rem; font-weight: 600; }
+
+        /* MAIN AREA */
+        .main-container { display: flex; gap: 30px; padding: 30px 40px; height: calc(100vh - 65px); }
+
+        /* KIRI: SIDEBAR MENU */
+        .sidebar { background: white; width: 300px; border-radius: 20px; padding: 20px 15px; border: 1px solid #f0f0f0; box-shadow: 0 5px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 5px; overflow-y: auto; }
+        
+        .side-category { font-size: 0.75rem; color: #999; margin: 15px 0 5px 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Sidebar Item diganti jadi link (a) */
+        .side-item { padding: 12px 20px; color: #555; font-size: 0.9rem; border-radius: 12px; cursor: pointer; font-weight: 500; transition: 0.3s; text-decoration: none; display: block; }
+        .side-item:hover { background-color: #f5f5f5; }
+        .side-item.active { background-color: #ede7f6; color: #5e35b1; font-weight: 600; }
+
+        /* KANAN: AREA KONTEN RUMUS */
+        .content-section { flex: 1; background: white; border-radius: 20px; padding: 40px; border: 1px solid #f0f0f0; box-shadow: 0 5px 15px rgba(0,0,0,0.02); overflow-y: auto; }
+        
+        .content-section h2 { font-size: 1.8rem; color: #111; margin-bottom: 25px; border-bottom: 2px solid #ede7f6; padding-bottom: 10px; }
+        
+        .section-title { font-size: 1.1rem; font-weight: 700; color: #333; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 10px; }
+        .section-title i { color: #5e35b1; }
+        
+        .rumus-box { background-color: #ede7f6; color: #4527a0; padding: 20px 25px; border-radius: 12px; font-size: 1.05rem; line-height: 1.8; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); }
+        .rumus-box b { color: #311b92; font-size: 1.1rem; margin-right: 5px; }
+        
+        .text-desc { color: #555; font-size: 0.95rem; line-height: 1.7; background: #fafafa; padding: 20px; border-radius: 12px; border-left: 4px solid #5e35b1; }
+        
+        .contoh-list { margin-left: 0; list-style: none; color: #444; font-size: 0.95rem; line-height: 1.8; margin-bottom: 40px; }
+        .contoh-list li { margin-bottom: 12px; background: white; padding: 15px; border-radius: 10px; border: 1px solid #eee; display: flex; align-items: flex-start; gap: 10px; }
+        .contoh-list li b { color: #5e35b1; font-size: 1.1rem; min-width: 25px; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #d1c4e9; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b39ddb; }
+    </style>
+</head>
+<body>
+
+    <div class="top-header">
+        <a href="dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
+        <div class="page-title">Rumus 16 Tenses & Grammar</div>
+    </div>
+
+    <div class="main-container">
+        
+        <div class="sidebar" id="sidebarMenu">
+            <div class="side-category">Present Tenses (Masa Kini)</div>
+            <a href="#" class="side-item active" onclick="gantiMateri(event, this, 'Simple Present Tense')">1. Simple Present</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Present Continuous')">2. Present Continuous</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Present Perfect')">3. Present Perfect</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Present Perfect Continuous')">4. Present Perf. Continuous</a>
+            
+            <div class="side-category">Past Tenses (Masa Lalu)</div>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Simple Past Tense')">5. Simple Past</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Past Continuous')">6. Past Continuous</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Past Perfect')">7. Past Perfect</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Past Perfect Continuous')">8. Past Perf. Continuous</a>
+
+            <div class="side-category">Future Tenses (Masa Depan)</div>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Simple Future Tense')">9. Simple Future</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Future Continuous')">10. Future Continuous</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Future Perfect')">11. Future Perfect</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Future Perfect Continuous')">12. Future Perf. Continuous</a>
+
+            <div class="side-category">Past Future (Rencana Gagal)</div>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Past Future Tense')">13. Past Future</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Past Future Continuous')">14. Past Future Continuous</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Past Future Perfect')">15. Past Future Perfect</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Past Future Perf. Cont.')">16. Past Future Perf. Cont.</a>
+            
+            <hr style="border: 0; border-top: 2px dashed #eee; margin: 15px 0;">
+            <div class="side-category">Materi Tambahan</div>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Mengenal Verb 1, 2, & 3')">Mengenal Verb 1, 2, & 3</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Has & Have')">Penggunaan Has & Have</a>
+            <a href="#" class="side-item" onclick="gantiMateri(event, this, 'Akhiran -ing & -ed')">Akhiran -ing & -ed</a>
+        </div>
+
+        <div class="content-section">
+            <h2 id="materiJudul">Simple Present Tense</h2>
+            <div class="section-title"><i class="fas fa-magic"></i> Penjelasan</div>
+            <div class="text-desc" id="materiPenjelasan">Digunakan untuk menyatakan kegiatan yang dilakukan secara rutin, kebiasaan, atau fakta umum.</div>
+            
+            <div class="section-title"><i class="fas fa-square-root-variable"></i> Rumus</div>
+            <div class="rumus-box" id="materiRumus">
+                <b>(+)</b> S + V1 (s/es) + Object <br>
+                <b>(-)</b> S + Do/Does + not + V1 + Object <br>
+                <b>(?)</b> Do/Does + S + V1 + Object ?
+            </div>
+            
+            <div class="section-title"><i class="fas fa-list"></i> Contoh Kalimat</div>
+            <ul class="contoh-list" id="materiContoh">
+                <li><b>(+)</b> <div>They play football every weekend.</div></li>
+                <li><b>(-)</b> <div>They do not play football every weekend.</div></li>
+                <li><b>(?)</b> <div>Do they play football every weekend?</div></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const dataMateri = {
+            "Simple Present Tense": {
+                penjelasan: "Digunakan untuk menyatakan kebiasaan, rutinitas, atau fakta yang mutlak.",
+                rumus: "<b>(+)</b> Subject + Verb 1 (s/es) + Object <br><b>(-)</b> Subject + Do/Does + not + Verb 1 + Object <br><b>(?)</b> Do/Does + Subject + Verb 1 + Object ?",
+                contoh: [
+                    "<b>(+)</b> <div>She <b>drinks</b> coffee every morning.</div>",
+                    "<b>(-)</b> <div>She <b>does not drink</b> coffee every morning.</div>",
+                    "<b>(?)</b> <div><b>Does</b> she <b>drink</b> coffee every morning?</div>"
+                ]
+            },
+            "Present Continuous": {
+                penjelasan: "Digunakan untuk menyatakan kegiatan yang <b>sedang berlangsung</b> tepat pada saat ini.",
+                rumus: "<b>(+)</b> Subject + To Be (am/is/are) + Verb-ing + Object <br><b>(-)</b> Subject + To Be (am/is/are) + not + Verb-ing + Object <br><b>(?)</b> To Be (am/is/are) + Subject + Verb-ing + Object ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>am studying</b> English right now.</div>",
+                    "<b>(-)</b> <div>I <b>am not studying</b> English right now.</div>",
+                    "<b>(?)</b> <div><b>Are</b> you <b>studying</b> English right now?</div>"
+                ]
+            },
+            "Present Perfect": {
+                penjelasan: "Digunakan untuk menyatakan kejadian yang <b>sudah selesai</b> di masa lalu, tapi efeknya masih ada/berlaku sampai sekarang.",
+                rumus: "<b>(+)</b> Subject + Have/Has + Verb 3 + Object <br><b>(-)</b> Subject + Have/Has + not + Verb 3 + Object <br><b>(?)</b> Have/Has + Subject + Verb 3 + Object ?",
+                contoh: [
+                    "<b>(+)</b> <div>They <b>have finished</b> their homework.</div>",
+                    "<b>(-)</b> <div>They <b>have not finished</b> their homework.</div>",
+                    "<b>(?)</b> <div><b>Have</b> they <b>finished</b> their homework?</div>"
+                ]
+            },
+            "Present Perfect Continuous": {
+                penjelasan: "Digunakan untuk menyatakan kejadian yang sudah dimulai di masa lalu dan <b>masih terus berlangsung</b> hingga saat ini.",
+                rumus: "<b>(+)</b> Subject + Have/Has + been + Verb-ing <br><b>(-)</b> Subject + Have/Has + not + been + Verb-ing <br><b>(?)</b> Have/Has + Subject + been + Verb-ing ?",
+                contoh: [
+                    "<b>(+)</b> <div>We <b>have been living</b> here for 5 years.</div>",
+                    "<b>(-)</b> <div>We <b>have not been living</b> here for 5 years.</div>",
+                    "<b>(?)</b> <div><b>Have</b> we <b>been living</b> here for 5 years?</div>"
+                ]
+            },
+            "Simple Past Tense": {
+                penjelasan: "Digunakan untuk menyatakan kejadian yang terjadi dan <b>sudah selesai</b> di masa lampau.",
+                rumus: "<b>(+)</b> Subject + Verb 2 + Object <br><b>(-)</b> Subject + Did + not + Verb 1 + Object <br><b>(?)</b> Did + Subject + Verb 1 + Object ?",
+                contoh: [
+                    "<b>(+)</b> <div>He <b>bought</b> a new car yesterday.</div>",
+                    "<b>(-)</b> <div>He <b>did not buy</b> a new car yesterday.</div>",
+                    "<b>(?)</b> <div><b>Did</b> he <b>buy</b> a new car yesterday?</div>"
+                ]
+            },
+            "Past Continuous": {
+                penjelasan: "Digunakan untuk menyatakan kejadian yang <b>sedang berlangsung</b> di titik waktu tertentu di masa lalu.",
+                rumus: "<b>(+)</b> Subject + was/were + Verb-ing <br><b>(-)</b> Subject + was/were + not + Verb-ing <br><b>(?)</b> Was/were + Subject + Verb-ing ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>was sleeping</b> when you called me.</div>",
+                    "<b>(-)</b> <div>I <b>was not sleeping</b> when you called me.</div>",
+                    "<b>(?)</b> <div><b>Were</b> you <b>sleeping</b> when I called?</div>"
+                ]
+            },
+            "Past Perfect": {
+                penjelasan: "Digunakan untuk menyatakan kejadian yang sudah selesai <b>sebelum</b> kejadian lain terjadi di masa lalu.",
+                rumus: "<b>(+)</b> Subject + Had + Verb 3 <br><b>(-)</b> Subject + Had + not + Verb 3 <br><b>(?)</b> Had + Subject + Verb 3 ?",
+                contoh: [
+                    "<b>(+)</b> <div>The train <b>had left</b> before I arrived.</div>",
+                    "<b>(-)</b> <div>The train <b>had not left</b> before I arrived.</div>",
+                    "<b>(?)</b> <div><b>Had</b> the train <b>left</b> before you arrived?</div>"
+                ]
+            },
+            "Past Perfect Continuous": {
+                penjelasan: "Digunakan untuk menyatakan durasi suatu kejadian yang berlangsung di masa lalu dan sudah selesai di masa lalu juga.",
+                rumus: "<b>(+)</b> Subject + Had + been + Verb-ing <br><b>(-)</b> Subject + Had + not + been + Verb-ing <br><b>(?)</b> Had + Subject + been + Verb-ing ?",
+                contoh: [
+                    "<b>(+)</b> <div>He <b>had been working</b> there for 3 years before he resigned.</div>",
+                    "<b>(-)</b> <div>He <b>had not been working</b> there for 3 years.</div>",
+                    "<b>(?)</b> <div><b>Had</b> he <b>been working</b> there for 3 years?</div>"
+                ]
+            },
+            "Simple Future Tense": {
+                penjelasan: "Digunakan untuk menyatakan rencana atau kejadian yang <b>akan terjadi</b> di masa depan.",
+                rumus: "<b>(+)</b> Subject + Will/Shall + Verb 1 <br><b>(-)</b> Subject + Will/Shall + not + Verb 1 <br><b>(?)</b> Will/Shall + Subject + Verb 1 ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>will visit</b> Bali next month.</div>",
+                    "<b>(-)</b> <div>I <b>will not (won't) visit</b> Bali next month.</div>",
+                    "<b>(?)</b> <div><b>Will</b> you <b>visit</b> Bali next month?</div>"
+                ]
+            },
+            "Future Continuous": {
+                penjelasan: "Digunakan untuk menyatakan aksi yang <b>akan sedang berlangsung</b> pada waktu tertentu di masa depan.",
+                rumus: "<b>(+)</b> Subject + Will + be + Verb-ing <br><b>(-)</b> Subject + Will + not + be + Verb-ing <br><b>(?)</b> Will + Subject + be + Verb-ing ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>will be sleeping</b> at 10 PM tonight.</div>",
+                    "<b>(-)</b> <div>I <b>will not be sleeping</b> at 10 PM tonight.</div>",
+                    "<b>(?)</b> <div><b>Will</b> you <b>be sleeping</b> at 10 PM tonight?</div>"
+                ]
+            },
+            "Future Perfect": {
+                penjelasan: "Digunakan untuk menyatakan aksi yang <b>akan sudah selesai</b> pada titik waktu tertentu di masa depan.",
+                rumus: "<b>(+)</b> Subject + Will + have + Verb 3 <br><b>(-)</b> Subject + Will + not + have + Verb 3 <br><b>(?)</b> Will + Subject + have + Verb 3 ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>will have finished</b> my task by tomorrow.</div>",
+                    "<b>(-)</b> <div>I <b>will not have finished</b> my task by tomorrow.</div>",
+                    "<b>(?)</b> <div><b>Will</b> you <b>have finished</b> your task by tomorrow?</div>"
+                ]
+            },
+            "Future Perfect Continuous": {
+                penjelasan: "Menyatakan durasi aksi yang akan masih berlangsung hingga suatu titik waktu di masa depan.",
+                rumus: "<b>(+)</b> Subject + Will + have + been + Verb-ing <br><b>(-)</b> Subject + Will + not + have + been + Verb-ing <br><b>(?)</b> Will + Subject + have + been + Verb-ing ?",
+                contoh: [
+                    "<b>(+)</b> <div>By next year, I <b>will have been working</b> here for 2 years.</div>",
+                    "<b>(-)</b> <div>I <b>will not have been working</b> here for 2 years by next year.</div>",
+                    "<b>(?)</b> <div><b>Will</b> you <b>have been working</b> here for 2 years?</div>"
+                ]
+            },
+            "Past Future Tense": {
+                penjelasan: "Digunakan untuk menyatakan rencana atau janji di masa lalu yang <b>(biasanya) tidak terjadi</b>.",
+                rumus: "<b>(+)</b> Subject + Would + Verb 1 <br><b>(-)</b> Subject + Would + not + Verb 1 <br><b>(?)</b> Would + Subject + Verb 1 ?",
+                contoh: [
+                    "<b>(+)</b> <div>He said he <b>would come</b>.</div>",
+                    "<b>(-)</b> <div>He <b>would not come</b>.</div>",
+                    "<b>(?)</b> <div><b>Would</b> he <b>come</b>?</div>"
+                ]
+            },
+            "Past Future Continuous": {
+                penjelasan: "Digunakan untuk mengandai-andai suatu aksi yang sedang terjadi di masa lalu (bersyarat).",
+                rumus: "<b>(+)</b> Subject + Would + be + Verb-ing <br><b>(-)</b> Subject + Would + not + be + Verb-ing <br><b>(?)</b> Would + Subject + be + Verb-ing ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>would be studying</b> if you didn't disturb me.</div>",
+                    "<b>(-)</b> <div>I <b>would not be studying</b>.</div>",
+                    "<b>(?)</b> <div><b>Would</b> you <b>be studying</b>?</div>"
+                ]
+            },
+            "Past Future Perfect": {
+                penjelasan: "Digunakan dalam kalimat pengandaian (Conditional Type 3) untuk menyesali hal yang tidak terjadi di masa lalu.",
+                rumus: "<b>(+)</b> Subject + Would + have + Verb 3 <br><b>(-)</b> Subject + Would + not + have + Verb 3 <br><b>(?)</b> Would + Subject + have + Verb 3 ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>would have bought</b> that car if I had money.</div>",
+                    "<b>(-)</b> <div>I <b>would not have bought</b> that car.</div>",
+                    "<b>(?)</b> <div><b>Would</b> you <b>have bought</b> that car?</div>"
+                ]
+            },
+            "Past Future Perf. Cont.": {
+                penjelasan: "Menyatakan durasi aksi yang akan sudah sedang berlangsung di masa lalu (jarang dipakai sehari-hari).",
+                rumus: "<b>(+)</b> Subject + Would + have + been + Verb-ing <br><b>(-)</b> Subject + Would + not + have + been + Verb-ing <br><b>(?)</b> Would + Subject + have + been + Verb-ing ?",
+                contoh: [
+                    "<b>(+)</b> <div>I <b>would have been working</b> for 3 hours if you hadn't stopped me.</div>",
+                    "<b>(-)</b> <div>I <b>would not have been working</b>.</div>",
+                    "<b>(?)</b> <div><b>Would</b> you <b>have been working</b>?</div>"
+                ]
+            },
+            "Mengenal Verb 1, 2, & 3": {
+                penjelasan: "Perubahan kata kerja dalam bahasa Inggris dibagi berdasarkan kapan waktu kejadiannya terjadi:<br><br>" +
+                            "1. <strong>Verb 1 (Present):</strong> Masa sekarang, rutinitas, atau setelah kata <em>'will/can'</em>.<br><br>" +
+                            "2. <strong>Verb 2 (Past):</strong> <b>KHUSUS</b> kejadian masa lalu yang sudah tamat.<br><br>" +
+                            "3. <strong>Verb 3 (Past Participle):</strong> Dipakai barengan kata <em>has/have</em> yang artinya 'Sudah'.",
+                rumus: "<b>(V1)</b> Present ➔ <b>(V2)</b> Past ➔ <b>(V3)</b> Past Participle",
+                contoh: [
+                    "<b>💡</b> <div><b>V1:</b> I <strong>study</strong> English every day. (Rutinitas)</div>",
+                    "<b>💡</b> <div><b>V2 (Regular):</b> I <strong>studied</strong> yesterday. (+ed)</div>",
+                    "<b>💡</b> <div><b>V2 (Irregular):</b> I <strong>went</strong> to Bali. (Asalnya 'go')</div>",
+                    "<b>💡</b> <div><b>V3:</b> I have <strong>eaten</strong>. (Aku sudah makan)</div>",
+                    "<b>💡</b> <div><b>V-ing:</b> I am <strong>working</strong>. (Sedang bekerja)</div>"
+                ]
+            },
+            "Has & Have": {
+                penjelasan: "Dalam bahasa Inggris, Has dan Have punya dua fungsi: <br>1. Sebagai kata kerja utama artinya 'Mempunyai'.<br>2. Sebagai kata bantu di Perfect Tense artinya 'Sudah'.",
+                rumus: "<b>(Has)</b> buat He, She, It <br><b>(Have)</b> buat I, You, They, We",
+                contoh: [
+                    "<b>+</b> <div>I <b>have</b> a book. <i>(Mempunyai)</i></div>",
+                    "<b>+</b> <div>He <b>has</b> a cat. <i>(Mempunyai)</i></div>",
+                    "<b>+</b> <div>We <b>have</b> eaten. <i>(Sudah makan)</i></div>"
+                ]
+            },
+            "Akhiran -ing & -ed": {
+                penjelasan: "<strong>Akhiran -ing:</strong> Digunakan untuk menandakan aksi yang SEDANG dilakukan (Continuous).<br><br><strong>Akhiran -ed:</strong> Digunakan untuk menandakan aksi yang SUDAH berlalu (Past Tense).",
+                rumus: "<b>(Sedang)</b> Verb + ing <br><b>(Sudah)</b> Verb + ed",
+                contoh: [
+                    "<b>+</b> <div>I am walk<strong>ing</strong>. <i>(Aku sedang berjalan)</i></div>",
+                    "<b>+</b> <div>I walk<strong>ed</strong> to school yesterday. <i>(Aku berjalan kemarin)</i></div>"
+                ]
+            }
+        };
+
+        // Ditambah event.preventDefault() biar halamannya nggak loncat ke atas pas diklik
+        function gantiMateri(event, elemenYangDiklik, namaMateri) {
+            event.preventDefault(); 
+            
+            let semuaMenu = document.querySelectorAll('.side-item');
+            semuaMenu.forEach(menu => menu.classList.remove('active'));
+            elemenYangDiklik.classList.add('active');
+
+            let data = dataMateri[namaMateri];
+
+            document.getElementById('materiJudul').innerText = namaMateri;
+            document.getElementById('materiPenjelasan').innerHTML = data.penjelasan;
+            document.getElementById('materiRumus').innerHTML = data.rumus;
+
+            let daftarContoh = document.getElementById('materiContoh');
+            daftarContoh.innerHTML = ""; 
+            data.contoh.forEach(kalimat => {
+                let li = document.createElement('li');
+                li.innerHTML = kalimat;
+                daftarContoh.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

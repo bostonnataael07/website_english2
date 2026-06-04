@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Roadmap - English Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #f4f7fe; display: flex; height: 100vh; overflow: hidden; color: #2b3674; }
+        
+        /* --- SIDEBAR KIRI --- */
+        .sidebar { width: 260px; background: white; padding: 30px 20px; display: flex; flex-direction: column; border-right: 1px solid #e0e5f2; z-index: 10; }
+        .logo-area { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 700; color: #1565c0; margin-bottom: 40px; padding-left: 10px; }
+        
+        .nav-menu { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; }
+        .nav-item { padding: 12px 15px; border-radius: 10px; color: #a3aed1; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 15px; transition: 0.3s; text-decoration: none; }
+        .nav-item:hover { background: #f4f7fe; color: #2b3674; }
+        .nav-item.active { background: #e9e3ff; color: #4318ff; font-weight: 600; }
+        .nav-item i { font-size: 1.1rem; width: 20px; text-align: center; }
+
+        /* BANNER DONASI */
+        .donation-banner { background: white; border-radius: 15px; padding: 20px; text-align: left; margin-top: auto; border: 1px solid #f0f0f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .donation-header-title { color: #555; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .donation-header-title i { color: #f06292; }
+        .donation-banner h4 { font-size: 0.95rem; margin-bottom: 8px; color: #2b3674; line-height: 1.3; }
+        .donation-banner p { font-size: 0.75rem; color: #8f9bba; margin-bottom: 15px; line-height: 1.5; }
+        .btn-donate { background: #f06292; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 0.8rem; cursor: pointer; width: 100%; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-donate:hover { background: #e91e63; }
+
+        /* --- MAIN CONTENT KANAN --- */
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+        .header-title h1 { font-size: 1.8rem; color: #2b3674; margin-bottom: 5px; }
+        .header-title p { color: #8f9bba; font-size: 0.95rem; }
+        
+        .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
+        .btn-kembali { padding: 8px 15px; border: 1px solid #ef5350; color: #ef5350; background: transparent; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: 0.3s; text-decoration: none; }
+        .btn-kembali:hover { background: #ffebee; }
+        .user-mini { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+        .user-mini .circle { width: 35px; height: 35px; background: #00bcd4; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+
+        /* KARTU PROGRESS KESELURUHAN (Atas Kanan) */
+        .overall-progress-card { background: white; padding: 20px 25px; border-radius: 15px; display: flex; align-items: center; gap: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; min-width: 350px; }
+        .trophy-icon { font-size: 2rem; color: #ffc107; }
+        .overall-info { flex: 1; }
+        .overall-info p { font-size: 0.8rem; color: #8f9bba; margin-bottom: 2px; }
+        .overall-info h4 { font-size: 1rem; color: #2b3674; margin-bottom: 8px; }
+        .progress-bar-bg { width: 100%; height: 6px; background: #e9ecef; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { width: 20%; height: 100%; background: #1565c0; border-radius: 10px; }
+        .btn-lihat-statistik { display: inline-flex; align-items: center; gap: 5px; background: white; border: 1px solid #e0e5f2; padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: #2b3674; cursor: pointer; text-decoration: none; margin-top: 10px; float: right; transition: 0.3s; }
+        .btn-lihat-statistik:hover { background: #f4f7fe; }
+
+        /* --- ROADMAP TIMELINE --- */
+        .roadmap-container { position: relative; padding-top: 20px; max-width: 900px; }
+        
+        .roadmap-row { display: flex; gap: 20px; margin-bottom: 30px; position: relative; }
+        
+        /* Kolom 1: Indikator Level */
+        .level-indicator { width: 70px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; padding-top: 10px; }
+        .lvl-text { font-size: 0.8rem; font-weight: 700; }
+        .lvl-box { width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; }
+        
+        /* Kolom 2: Node & Garis */
+        .timeline-node { width: 30px; display: flex; justify-content: center; position: relative; z-index: 2; padding-top: 22px; }
+        .node-circle { width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; display: flex; justify-content: center; align-items: center; color: white; font-size: 0.7rem; z-index: 2; }
+        .node-circle.hollow { background: white; border: 4px solid; width: 20px; height: 20px; }
+        .node-circle.small { background: #e0e5f2; border: none; width: 12px; height: 12px; margin-top: 5px; }
+        
+        /* Garis Sambungan Vertikal */
+        .timeline-line { position: absolute; left: 14px; top: 45px; bottom: -50px; width: 3px; background: #e0e5f2; z-index: 1; }
+        .roadmap-row:last-child .timeline-line { display: none; } /* Hilangkan garis di item terakhir */
+
+        /* Kolom 3: Kartu Konten */
+        .roadmap-card { flex: 1; background: white; border-radius: 15px; padding: 25px; border: 1px solid #f0f0f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+        
+        .card-left { display: flex; gap: 20px; align-items: flex-start; flex: 1; }
+        .card-icon { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: white; flex-shrink: 0; }
+        
+        .card-info h3 { font-size: 1.2rem; color: #2b3674; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+        .status-badge { font-size: 0.7rem; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+        .card-info p { font-size: 0.85rem; color: #8f9bba; margin-bottom: 15px; }
+        
+        .tags-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-size: 0.75rem; padding: 5px 12px; border-radius: 15px; font-weight: 500; }
+        
+        .card-right { text-align: right; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; min-width: 130px; }
+        .card-right span { font-size: 0.8rem; color: #8f9bba; margin-bottom: 2px; }
+        .card-right h4 { font-size: 1.1rem; margin-bottom: 12px; }
+        .btn-action { padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.3s; }
+        
+        /* --- WARNA SPESIFIK TIAP LEVEL --- */
+        /* Level 1: Hijau (Selesai) */
+        .l-green .lvl-text { color: #4caf50; }
+        .l-green .lvl-box { background: #e8f5e9; color: #4caf50; }
+        .l-green .node-circle { background: #4caf50; }
+        .l-green .timeline-line { background: #4caf50; }
+        .l-green .roadmap-card { background: #fdfefd; border-color: #e8f5e9; }
+        .l-green .card-icon { background: #4caf50; }
+        .l-green .status-badge { background: #e8f5e9; color: #4caf50; }
+        .l-green .tag { background: #f1f8f1; color: #4caf50; }
+        .l-green .card-right h4 { color: #4caf50; }
+        .l-green .btn-action { background: white; border: 1px solid #4caf50; color: #4caf50; }
+        .l-green .btn-action:hover { background: #e8f5e9; }
+
+        /* Level 2: Biru (Selesai) */
+        .l-blue .lvl-text { color: #1976d2; }
+        .l-blue .lvl-box { background: #e3f2fd; color: #1976d2; }
+        .l-blue .node-circle { background: #1976d2; }
+        .l-blue .timeline-line { background: #1976d2; }
+        .l-blue .roadmap-card { background: #fbfdff; border-color: #e3f2fd; }
+        .l-blue .card-icon { background: #1976d2; }
+        .l-blue .status-badge { background: #e3f2fd; color: #1976d2; }
+        .l-blue .tag { background: #f0f7ff; color: #1976d2; }
+        .l-blue .card-right h4 { color: #1976d2; }
+        .l-blue .btn-action { background: white; border: 1px solid #1976d2; color: #1976d2; }
+        .l-blue .btn-action:hover { background: #e3f2fd; }
+
+        /* Level 3: Orange (Sedang Berlangsung) */
+        .l-orange .lvl-text { color: #f57c00; }
+        .l-orange .lvl-box { background: #fff3e0; color: #f57c00; }
+        .l-orange .node-circle.hollow { border-color: #f57c00; }
+        .l-orange .roadmap-card { background: #fffcf8; border-color: #ffe0b2; }
+        .l-orange .card-icon { background: #f57c00; }
+        .l-orange .status-badge { background: #fff3e0; color: #f57c00; }
+        .l-orange .tag { background: #fff8eb; color: #f57c00; }
+        .l-orange .card-right h4 { color: #f57c00; }
+        .l-orange .btn-action { background: #fff3e0; border: 1px solid #f57c00; color: #f57c00; }
+        .l-orange .btn-action:hover { background: #ffe0b2; }
+        
+        .progress-mini-container { width: 100%; margin-bottom: 12px; }
+        .progress-mini-bg { width: 100%; height: 6px; background: #ffe0b2; border-radius: 10px; overflow: hidden; margin-top: 5px; }
+        .progress-mini-fill { width: 60%; height: 100%; background: #f57c00; border-radius: 10px; }
+
+        /* Level 4: Ungu (Terkunci) */
+        .l-purple .lvl-text { color: #ce93d8; }
+        .l-purple .lvl-box { background: #f3e5f5; color: #ce93d8; }
+        .l-purple .roadmap-card { background: white; border-color: #f3e5f5; opacity: 0.8; }
+        .l-purple .card-icon { background: #ab47bc; }
+        .l-purple .status-badge { color: #8f9bba; background: #f4f7fe; }
+        .l-purple .tag { background: #f8f0ff; color: #ab47bc; }
+        .l-locked-text { color: #8f9bba; font-size: 0.8rem; text-align: right; display: flex; align-items: center; gap: 8px; line-height: 1.4; }
+
+        /* Level 5: Pink (Terkunci) */
+        .l-pink .lvl-text { color: #f48fb1; }
+        .l-pink .lvl-box { background: #fce4ec; color: #f48fb1; }
+        .l-pink .roadmap-card { background: white; border-color: #fce4ec; opacity: 0.8; }
+        .l-pink .card-icon { background: #ec407a; }
+        .l-pink .status-badge { color: #8f9bba; background: #f4f7fe; }
+        .l-pink .tag { background: #fdf2f6; color: #ec407a; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+        /* MODAL DONASI */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(3px); }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 20px; padding: 25px; position: relative; transform: translateY(20px); transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h3 { font-size: 1.1rem; color: #111; margin: 0; }
+        .close-btn { background: transparent; border: none; font-size: 1.2rem; color: #8f9bba; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: #ef5350; }
+        .modal-alert-top { background: #fff0f6; border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: left; }
+        .modal-alert-top strong { color: #d81b60; font-size: 0.85rem; display: block; margin-bottom: 5px; }
+        .modal-alert-top p { color: #555; font-size: 0.75rem; margin: 0; line-height: 1.4; }
+        .qris-container { text-align: center; margin-bottom: 15px; }
+        .qris-image-box { border: 1px solid #e0e5f2; border-radius: 15px; padding: 15px; display: inline-block; margin-bottom: -15px; position: relative; z-index: 1; background: white; }
+        .qris-image-box img { width: 180px; height: 180px; object-fit: cover; }
+        .qris-badge { background: white; border: 1px solid #e0e5f2; color: #555; font-size: 0.75rem; font-weight: 600; padding: 4px 15px; border-radius: 15px; position: relative; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .qris-desc { text-align: center; color: #8f9bba; font-size: 0.75rem; margin-bottom: 20px; margin-top: 10px; }
+        .modal-alert-bottom { background: #fff0f6; border-radius: 10px; padding: 15px; text-align: center; display: flex; align-items: center; gap: 10px; }
+        .modal-alert-bottom i { color: #f06292; font-size: 1.2rem; }
+        .modal-alert-bottom p { color: #555; font-size: 0.75rem; margin: 0; line-height: 1.4; text-align: left; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-area">
+            <i class="fas fa-graduation-cap"></i> English Master
+        </div>
+        <div class="nav-menu">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+            <div style="height: 15px;"></div>
+            
+            <a href="progress.html" class="nav-item active"><i class="fas fa-chart-line"></i> Progress</a>
+            
+            <a href="profil.html" class="nav-item"><i class="far fa-user"></i> Profil Saya</a>
+            <a href="pengaturan.html" class="nav-item"><i class="fas fa-cog"></i> Pengaturan</a>
+            <a href="home.html" class="nav-item" style="color: #ef5350;"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+        </div>
+
+        <div class="donation-banner">
+            <div class="donation-header-title">
+                <i class="fas fa-heart"></i> Donasi / Support Project
+            </div>
+            <h4>Dukung Pengembangan<br>English Master</h4>
+            <p>Bantu kami untuk terus mengembangkan fitur belajar yang lebih baik.</p>
+            <button class="btn-donate" onclick="bukaModalDonasi()">Dukung Sekarang <i class="fas fa-heart" style="font-size: 0.75rem;"></i></button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="header">
+            <div class="header-title">
+                <h1>Learning Roadmap</h1>
+                <p>Perjalanan belajarmu menuju mahir berbahasa Inggris ✨</p>
+            </div>
+            
+            <div class="header-right">
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <a href="dashboard.html" class="btn-kembali"><i class="fas fa-sign-out-alt fa-flip-horizontal"></i> Kembali ke Dashboard</a>
+                    <div class="user-mini">
+                        <div class="circle" id="miniAvatar">BO</div>
+                        <span id="miniName">boston</span> <i class="fas fa-chevron-down" style="font-size: 0.8rem; color:#8f9bba;"></i>
+                    </div>
+                </div>
+                
+                <div class="overall-progress-card">
+                    <i class="fas fa-trophy trophy-icon"></i>
+                    <div class="overall-info">
+                        <p>Progress Keseluruhan</p>
+                        <h4>20% Selesai</h4>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn-lihat-statistik">Lihat Semua Statistik <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="roadmap-container">
+            
+            <div class="roadmap-row l-green">
+                <div class="level-indicator">
+                    <span class="lvl-text">Level 1</span>
+                    <div class="lvl-box"><i class="fas fa-shield-alt"></i></div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle"><i class="fas fa-check"></i></div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="roadmap-card">
+                    <div class="card-left">
+                        <div class="card-icon"><i class="fas fa-comments"></i></div>
+                        <div class="card-info">
+                            <h3>Basic Foundation <span class="status-badge">Selesai</span></h3>
+                            <p>Membangun dasar bahasa Inggris untuk pemula.</p>
+                            <div class="tags-container">
+                                <span class="tag">Vocabulary Dasar</span>
+                                <span class="tag">Greetings</span>
+                                <span class="tag">Alphabet</span>
+                                <span class="tag">Numbers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <span>XP Diperoleh</span>
+                        <h4>500 XP</h4>
+                        <a href="vocab.html" class="btn-action">Review Materi</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roadmap-row l-blue">
+                <div class="level-indicator">
+                    <span class="lvl-text">Level 2</span>
+                    <div class="lvl-box"><i class="fas fa-shield-alt"></i></div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle"><i class="fas fa-check"></i></div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="roadmap-card">
+                    <div class="card-left">
+                        <div class="card-icon"><i class="fas fa-user-friends"></i></div>
+                        <div class="card-info">
+                            <h3>Daily Conversation <span class="status-badge">Selesai</span></h3>
+                            <p>Belajar percakapan sehari-hari yang sering digunakan.</p>
+                            <div class="tags-container">
+                                <span class="tag">Introducing Yourself</span>
+                                <span class="tag">Daily Activities</span>
+                                <span class="tag">Asking & Answering</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <span>XP Diperoleh</span>
+                        <h4>750 XP</h4>
+                        <a href="latihan.html" class="btn-action">Review Materi</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roadmap-row l-orange">
+                <div class="level-indicator">
+                    <span class="lvl-text">Level 3</span>
+                    <div class="lvl-box"><i class="fas fa-rocket"></i></div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle hollow"></div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="roadmap-card">
+                    <div class="card-left">
+                        <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="card-info">
+                            <h3>Basic Grammar <span class="status-badge">Sedang Berlangsung</span></h3>
+                            <p>Memahami tata bahasa dasar dalam bahasa Inggris.</p>
+                            <div class="tags-container">
+                                <span class="tag">Verb to be</span>
+                                <span class="tag">Simple Present</span>
+                                <span class="tag">Articles (a, an, the)</span>
+                                <span class="tag">+2 lainnya</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-right" style="min-width: 150px;">
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <span>Progress</span>
+                            <span style="font-weight: 700; color: #f57c00;">60%</span>
+                        </div>
+                        <div class="progress-mini-container">
+                            <div class="progress-mini-bg"><div class="progress-mini-fill"></div></div>
+                        </div>
+                        <a href="grammar.html" class="btn-action" style="width: 100%; text-align: center;">Lanjut Belajar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roadmap-row l-purple">
+                <div class="level-indicator">
+                    <span class="lvl-text">Level 4</span>
+                    <div class="lvl-box"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle small"></div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="roadmap-card">
+                    <div class="card-left">
+                        <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                        <div class="card-info">
+                            <h3>Intermediate Grammar <span class="status-badge">Terkunci</span></h3>
+                            <p>Tingkatkan pemahaman tata bahasa ke level menengah.</p>
+                            <div class="tags-container">
+                                <span class="tag">Past Tense</span>
+                                <span class="tag">Future Tense</span>
+                                <span class="tag">Modal Verbs</span>
+                                <span class="tag">+2 lainnya</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="l-locked-text">
+                            <i class="fas fa-lock" style="font-size: 1.2rem;"></i>
+                            <span>Selesaikan Level 3<br>untuk membuka</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roadmap-row l-pink">
+                <div class="level-indicator">
+                    <span class="lvl-text">Level 5</span>
+                    <div class="lvl-box"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle small"></div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="roadmap-card">
+                    <div class="card-left">
+                        <div class="card-icon"><i class="fas fa-microphone-alt"></i></div>
+                        <div class="card-info">
+                            <h3>Speaking Fluency <span class="status-badge">Terkunci</span></h3>
+                            <p>Tingkatkan kelancaran berbicara dalam berbagai situasi.</p>
+                            <div class="tags-container">
+                                <span class="tag">Pronunciation</span>
+                                <span class="tag">Fluency Practice</span>
+                                <span class="tag">Real Conversation</span>
+                                <span class="tag">+2 lainnya</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="l-locked-text">
+                            <i class="fas fa-lock" style="font-size: 1.2rem;"></i>
+                            <span>Selesaikan Level 4<br>untuk membuka</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> </div>
+
+    <div class="modal-overlay" id="donationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Dukung Pengembangan</h3>
+                <button class="close-btn" onclick="tutupModalDonasi()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-alert-top">
+                <strong>Scan QRIS di bawah untuk donasi</strong>
+                <p>Setiap dukunganmu sangat berarti bagi perkembangan English Master.</p>
+            </div>
+            <div class="qris-container">
+                <div class="qris-image-box">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="Barcode QRIS">
+                </div>
+                <br>
+                <span class="qris-badge">QRIS</span>
+            </div>
+            <p class="qris-desc">Bisa menggunakan aplikasi apapun yang mendukung QRIS.</p>
+            <div class="modal-alert-bottom">
+                <i class="fas fa-heart"></i>
+                <p>Dukunganmu membantu kami membuat fitur belajar yang lebih baik.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Donasi
+        function bukaModalDonasi() { document.getElementById('donationModal').classList.add('active'); }
+        function tutupModalDonasi() { document.getElementById('donationModal').classList.remove('active'); }
+
+        // Data User
+        document.addEventListener("DOMContentLoaded", function() {
+            let savedName = localStorage.getItem('namaUser');
+            if(savedName) {
+                document.getElementById('miniName').innerText = savedName;
+                let inisial = savedName.substring(0, 2).toUpperCase();
+                document.getElementById('miniAvatar').innerText = inisial;
+            }
+        });
+    </script>
+</body>
+</html>

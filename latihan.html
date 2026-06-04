@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Berbicara - English Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafcff; display: flex; flex-direction: column; height: 100vh; overflow: hidden; color: #333; }
+        
+        .top-header { background: #2e7d32; color: white; padding: 15px 40px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; }
+        .btn-back { background: transparent; border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; width: 30px; height: 30px; }
+        .btn-back:hover { transform: translateX(-5px); }
+        .page-title { font-size: 1.2rem; font-weight: 600; }
+
+        .main-container { display: flex; gap: 30px; padding: 30px 40px; height: calc(100vh - 65px); }
+
+        .speaking-section { flex: 1; background: white; border-radius: 20px; padding: 30px; border: 1px solid #e0e0e0; display: flex; flex-direction: column; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .speaking-section h2 { font-size: 1.5rem; color: #111; margin-bottom: 10px; text-align: center; }
+        .speaking-section p { color: #666; font-size: 0.9rem; margin-bottom: 30px; text-align: center; }
+        
+        .mic-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; }
+        .mic-btn { background-color: #4caf50; color: white; border: none; width: 80px; height: 80px; border-radius: 50%; font-size: 2.5rem; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3); display: flex; justify-content: center; align-items: center; }
+        .mic-btn:hover { background-color: #388e3c; transform: scale(1.05); }
+        .mic-btn.recording { background-color: #d32f2f; animation: pulse 1.5s infinite; box-shadow: 0 0 20px rgba(211, 47, 47, 0.5); }
+        
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        #micStatus { margin-top: 15px; font-weight: 600; color: #2e7d32; font-size: 0.95rem; text-align: center; }
+
+        textarea { width: 100%; flex-grow: 1; resize: none; padding: 20px; border-radius: 12px; border: 2px solid #e8f5e9; font-size: 1.1rem; outline: none; transition: 0.3s; line-height: 1.6; text-align: center; background-color: #f1f8e9; color: #333; cursor: not-allowed; }
+        
+        .btn-check { width: 100%; margin-top: 20px; padding: 15px; background: #2e7d32; color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-check:hover { background: #1b5e20; }
+        .btn-check:disabled { background: #a5d6a7; cursor: not-allowed; }
+
+        .result-section { flex: 1; background: #f8f9fa; border-radius: 20px; padding: 30px; border: 1px dashed #ccc; display: flex; flex-direction: column; overflow-y: auto; }
+        .result-empty { margin: auto; text-align: center; color: #999; }
+        .result-empty i { font-size: 4rem; color: #e0e0e0; margin-bottom: 15px; }
+        
+        .result-content { display: none; flex-direction: column; height: 100%; }
+        .result-content h3 { color: #2e7d32; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        
+        .text-display { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e0e0e0; line-height: 1.8; font-size: 1rem; margin-bottom: 20px; text-align: center; }
+        
+        .error-highlight { background-color: #ffebee; color: #c62828; padding: 2px 6px; border-radius: 4px; border-bottom: 2px solid #ef5350; font-weight: 600; position: relative; cursor: pointer; }
+        
+        .feedback-card { background: white; padding: 15px 20px; border-radius: 10px; border-left: 5px solid #ef5350; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .feedback-card strong { color: #c62828; font-size: 1.1rem; display: block; margin-bottom: 5px; }
+        .feedback-card p { color: #555; font-size: 0.9rem; margin: 0; line-height: 1.5; }
+
+        .daily-quote { margin-top: auto; padding: 15px; border-radius: 12px; text-align: center; font-style: italic; font-weight: 500; font-size: 0.95rem; }
+        .quote-motivation { background: #fff3e0; color: #e65100; border: 1px solid #ffe0b2; }
+        .quote-praise { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        
+        .system-error { color: #d32f2f; background: #ffebee; padding: 15px; border-radius: 8px; font-weight: 500; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="top-header">
+        <a href="dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
+        <div class="page-title">Speaking Space</div>
+    </div>
+
+    <div class="main-container">
+        <div class="speaking-section">
+            <h2>Speaking Practice</h2>
+            <p>Klik tombol mikrofon, lalu bicaralah dalam bahasa Inggris. Klik kotak merah untuk berhenti.</p>
+            
+            <div class="mic-container">
+                <button class="mic-btn" id="btnMic"><i class="fas fa-microphone"></i></button>
+                <p id="micStatus">Klik mikrofon untuk bicara</p>
+            </div>
+
+            <textarea id="userText" placeholder="Hasil ucapanmu akan langsung muncul di sini saat kamu berbicara..." readonly></textarea>
+            
+            <button class="btn-check" id="btnCheck">Cek Hasil <i class="fas fa-magic"></i></button>
+        </div>
+
+        <div class="result-section" id="resultContainer">
+            <div class="result-empty" id="resultEmpty">
+                <i class="fas fa-robot"></i>
+                <h3>Hasil Analisis AI</h3>
+                <p>Silakan bicara terlebih dahulu, lalu klik "Cek Hasil".</p>
+            </div>
+
+            <div class="result-content" id="resultContent">
+                <h3><i class="fas fa-check-circle"></i> Analisis Selesai</h3>
+                <div class="text-display" id="aiTextDisplay"></div>
+                <div id="aiFeedbackList"></div>
+                <div id="dailyQuoteBox" class="daily-quote"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btnMic = document.getElementById('btnMic');
+        const micStatus = document.getElementById('micStatus');
+        const userText = document.getElementById('userText');
+        const resultEmpty = document.getElementById('resultEmpty');
+        const resultContent = document.getElementById('resultContent');
+        
+        let isRecording = false;
+        let recognition;
+        let baseText = ""; 
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true; 
+            recognition.interimResults = true; 
+            recognition.lang = 'en-US'; 
+
+            recognition.onstart = function() {
+                isRecording = true;
+                btnMic.classList.add('recording');
+                btnMic.innerHTML = '<i class="fas fa-square"></i>'; 
+                micStatus.innerText = "Mendengarkan... Silakan bicara!";
+                micStatus.style.color = "#d32f2f";
+            };
+
+            recognition.onresult = function(event) {
+                let finalT = '';
+                let interimT = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) finalT += event.results[i][0].transcript;
+                    else interimT += event.results[i][0].transcript;
+                }
+                if (finalT !== '') baseText += finalT + " ";
+                userText.value = baseText + interimT;
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Mic Error:", event.error);
+                if (event.error === 'not-allowed') resetMicUI("Izin ditolak! Izinkan mic di browser.", "#d32f2f");
+            };
+
+            recognition.onend = function() {
+                resetMicUI("Klik mikrofon untuk bicara lagi", "#2e7d32");
+            };
+
+            btnMic.addEventListener('click', () => {
+                if(isRecording) {
+                    recognition.abort(); 
+                    resetMicUI("Berhenti. Silakan klik Cek Hasil.", "#2e7d32");
+                } else {
+                    baseText = "";
+                    userText.value = "";
+                    resultEmpty.style.display = 'block';
+                    resultContent.style.display = 'none';
+                    recognition.start();
+                }
+            });
+        } else {
+            micStatus.innerText = "Maaf, browsermu tidak mendukung fitur suara.";
+            micStatus.style.color = "#d32f2f";
+            btnMic.disabled = true;
+            btnMic.style.backgroundColor = "#ccc";
+        }
+
+        function resetMicUI(pesan, warna) {
+            isRecording = false;
+            btnMic.classList.remove('recording');
+            btnMic.innerHTML = '<i class="fas fa-microphone"></i>'; 
+            micStatus.innerText = pesan;
+            micStatus.style.color = warna;
+        }
+
+        const GEMINI_API_KEY = "AIzaSyBVRzUgq53S351M4EXZQ4PCWZr0fj2crnw"; 
+        const motivasiHarian = ["Luar biasa! Jangan takut salah sebut, lidah butuh latihan. Gaskeun!", "Pelafalanmu semakin baik. Terus berani bicara!", "Bahasa itu soal komunikasi, yang penting pesanmu tersampaikan. Good job!", "Semakin sering bicara, semakin natural terdengarnya. Keep practicing!"];
+        const pujianHarian = ["Perfecto! Grammar dan susunan kalimat lisanmu sangat rapi.", "Luar biasa! Nggak ada salah grammar sama sekali dari ucapanmu.", "Keren banget! Bahasa Inggrismu udah sekelas native speaker nih.", "Spot on! Terus pertahankan rasa percaya dirimu saat berbicara."];
+
+        const btnCheck = document.getElementById('btnCheck');
+        const aiTextDisplay = document.getElementById('aiTextDisplay');
+        const aiFeedbackList = document.getElementById('aiFeedbackList');
+        const dailyQuoteBox = document.getElementById('dailyQuoteBox');
+
+        btnCheck.addEventListener('click', async function() {
+            let textAsli = userText.value.trim();
+            if(textAsli === "") { alert("Kotak teks masih kosong Bosku! Klik mic dan ngomong dulu ya."); return; }
+
+            btnCheck.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Otak AI Sedang Berpikir...';
+            btnCheck.disabled = true;
+            resultEmpty.style.display = 'none';
+            resultContent.style.display = 'flex';
+            aiTextDisplay.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menganalisis ucapanmu...';
+            aiFeedbackList.innerHTML = '';
+            dailyQuoteBox.innerHTML = '';
+
+            const promptUntukAI = `
+                Kamu adalah guru bahasa Inggris. Periksa grammar, tenses, vocab dari kalimat lisan berikut ini: "${textAsli}"
+                KEMBALIKAN OUTPUT HANYA DALAM FORMAT JSON SEPERTI CONTOH DI BAWAH INI. JANGAN ADA TEKS LAIN SAMA SEKALI.
+                {
+                    "ada_salah": true,
+                    "teks_highlight": "teks asli pengguna, tapi SETIAP KATA YANG SALAH dibungkus dengan <span class='error-highlight' title='Jenis Error'>kata_salah</span>",
+                    "penjelasan": [
+                        { "judul": "1. Salah Penggunaan Kata", "deskripsi": "Penjelasan detail." }
+                    ]
+                }
+            `;
+
+            try {
+                const respon = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptUntukAI }] }] })
+                });
+
+                if (!respon.ok) throw new Error(`Google API menolak permintaan (HTTP ${respon.status})`);
+                const data = await respon.json();
+                
+                if (!data.candidates || data.candidates.length === 0) throw new Error("AI memblokir balasan karena kalimat tidak sesuai standar sistem Google.");
+                
+                let teksJawabanAI = data.candidates[0].content.parts[0].text;
+                const pencariJSON = teksJawabanAI.match(/\{[\s\S]*\}/);
+                if(!pencariJSON) throw new Error("Format jawaban AI rusak dan bukan JSON.");
+
+                const hasilAnalisis = JSON.parse(pencariJSON[0]);
+                const hariIni = new Date().getDay() % motivasiHarian.length;
+
+                aiTextDisplay.innerHTML = hasilAnalisis.teks_highlight;
+
+                if (hasilAnalisis.ada_salah && hasilAnalisis.penjelasan && hasilAnalisis.penjelasan.length > 0) {
+                    let feedbackHTML = "";
+                    hasilAnalisis.penjelasan.forEach(err => {
+                        feedbackHTML += `<div class="feedback-card"><strong>${err.judul}</strong><p>${err.deskripsi}</p></div>`;
+                    });
+                    aiFeedbackList.innerHTML = feedbackHTML;
+                    dailyQuoteBox.className = "daily-quote quote-motivation";
+                    dailyQuoteBox.innerHTML = `💡 "${motivasiHarian[hariIni]}"`;
+                } else {
+                    aiFeedbackList.innerHTML = "";
+                    dailyQuoteBox.className = "daily-quote quote-praise";
+                    dailyQuoteBox.innerHTML = `🌟 "${pujianHarian[hariIni]}"`;
+                }
+            } catch (error) {
+                console.error("Error Detail AI:", error);
+                aiTextDisplay.innerHTML = `<div class="system-error"><i class="fas fa-exclamation-triangle"></i> AI Gagal Memproses.<br><small style="font-weight:normal; margin-top:5px; display:block;">Info Error: ${error.message}</small></div>`;
+            } finally {
+                btnCheck.innerHTML = 'Cek Hasil <i class="fas fa-magic"></i>';
+                btnCheck.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

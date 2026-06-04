@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari Vocabulary - English Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafcff; color: #333; height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        /* HEADER ORANYE */
+        .top-header { background-color: #f57c00; color: white; padding: 15px 40px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; }
+        .btn-back { background: transparent; border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; width: 30px; height: 30px; }
+        .btn-back:hover { transform: translateX(-5px); }
+        .page-title { font-size: 1.2rem; font-weight: 600; }
+
+        .main-content { flex-grow: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; position: relative; }
+        
+        /* SEARCH BOX */
+        .search-wrapper { width: 100%; max-width: 600px; position: relative; margin-bottom: 30px; }
+        .search-box { display: flex; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white; }
+        .search-input { flex-grow: 1; padding: 18px 20px; border: none; outline: none; font-size: 1rem; }
+        .search-btn { background: #f57c00; color: white; border: none; padding: 0 25px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
+        .search-btn:hover { background: #e65100; }
+        .search-btn:disabled { background: #ffcc80; cursor: not-allowed; }
+
+        /* KARTU HASIL */
+        .content-card { background: white; width: 100%; max-width: 600px; border-radius: 20px; padding: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; display: none; }
+        
+        .word-header { display: flex; align-items: center; gap: 15px; margin-bottom: 5px; }
+        .word-title { font-size: 2.5rem; font-weight: 700; color: #111; text-transform: lowercase; }
+        .phonetic-text { color: #888; font-size: 1.1rem; margin-bottom: 15px; font-family: sans-serif; }
+        
+        .sound-btn { background: #fff3e0; border: none; color: #f57c00; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
+        .sound-btn:hover { background: #f57c00; color: white; transform: scale(1.1); }
+        .sound-btn:disabled { background: #eee; color: #aaa; cursor: not-allowed; }
+        
+        .badges-container { margin-bottom: 25px; }
+        .word-type { background: #fff3e0; color: #e65100; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; text-transform: capitalize; }
+        
+        /* BADGE TERJEMAHAN */
+        .translate-badge { background: #e8f5e9; color: #2e7d32; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-left: 10px; border: 1px solid #c8e6c9; display: none; }
+        
+        .section-title { font-weight: 700; color: #111; margin-bottom: 8px; font-size: 1.1rem; }
+        .section-text { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .example-text { font-style: italic; color: #444; border-left: 3px solid #f57c00; padding-left: 15px; background: #fffaf5; padding: 10px 15px; border-radius: 0 8px 8px 0; }
+
+        .btn-add { width: 100%; padding: 15px; border: 1px solid #f57c00; border-radius: 12px; background: transparent; color: #f57c00; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-add:hover { background: #fff3e0; }
+
+        /* STATE KOSONG / ERROR */
+        .empty-state { text-align: center; color: #999; margin-top: 50px; }
+        .empty-state i { font-size: 4rem; color: #e0e0e0; margin-bottom: 15px; }
+        .error-text { color: #d32f2f; font-weight: 500; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="top-header">
+        <a href="dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
+        <div class="page-title">Cari Vocabulary (Global API)</div>
+    </div>
+
+    <div class="main-content">
+        <div class="search-wrapper">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="Cari bahasa Inggris atau Indonesia (cth: cantik, kucing, run...)">
+                <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <i class="fas fa-globe"></i>
+            <h3 id="emptyTitle">Kamus Global Siap</h3>
+            <p id="emptyDesc">Ketik kata dalam bahasa Inggris atau Indonesia.</p>
+        </div>
+
+        <div class="content-card" id="resultCard">
+            <div class="word-header">
+                <div class="word-title" id="displayWord">-</div>
+                <button class="sound-btn" id="soundBtn"><i class="fas fa-volume-up"></i></button>
+            </div>
+            
+            <div class="phonetic-text" id="displayPhonetic"></div>
+            
+            <div class="badges-container">
+                <div class="word-type" id="displayType">-</div>
+                <div class="translate-badge" id="translateBadge">Diterjemahkan dari: "kata"</div>
+            </div>
+
+            <div class="section-title">Definition (English)</div>
+            <div class="section-text" id="displayMeaning">-</div>
+            
+            <div class="section-title">Example</div>
+            <div class="section-text example-text" id="displayExample">-</div>
+            
+            <button class="btn-add" onclick="alert('Berhasil ditambahkan ke Daftar Katamu!')">Tambah ke Daftar Kata</button>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const emptyState = document.getElementById('emptyState');
+        const emptyTitle = document.getElementById('emptyTitle');
+        const emptyDesc = document.getElementById('emptyDesc');
+        const resultCard = document.getElementById('resultCard');
+        
+        const displayWord = document.getElementById('displayWord');
+        const displayPhonetic = document.getElementById('displayPhonetic');
+        const displayType = document.getElementById('displayType');
+        const translateBadge = document.getElementById('translateBadge');
+        const displayMeaning = document.getElementById('displayMeaning');
+        const displayExample = document.getElementById('displayExample');
+        const soundBtn = document.getElementById('soundBtn');
+
+        let audioSource = null;
+
+        searchBtn.addEventListener('click', prosesPencarian);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') prosesPencarian();
+        });
+
+        async function prosesPencarian() {
+            let kataInput = searchInput.value.toLowerCase().trim();
+            if (kataInput === "") return;
+
+            resultCard.style.display = "none";
+            emptyState.style.display = "block";
+            emptyTitle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mencari kata...';
+            emptyDesc.innerText = "Menghubungkan ke Google Translate & Kamus Global...";
+            searchBtn.disabled = true;
+            translateBadge.style.display = "none";
+
+            try {
+                let responKamus = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${kataInput}`);
+                
+                if (responKamus.ok) {
+                    const data = await responKamus.json();
+                    tampilkanHasil(data[0]);
+                } else {
+                    emptyDesc.innerText = "Menerjemahkan kata Indonesia lewat Google Translate...";
+                    const urlGoogleTranslate = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=id&tl=en&dt=t&q=${encodeURIComponent(kataInput)}`;
+                    
+                    const responTranslate = await fetch(urlGoogleTranslate);
+                    const dataTranslate = await responTranslate.json();
+                    let hasilTranslate = dataTranslate[0][0][0].toLowerCase().trim();
+                    
+                    if (hasilTranslate === kataInput || hasilTranslate === "") throw new Error("Gagal mengenali terjemahan.");
+
+                    emptyDesc.innerText = `Terjemahan Google: "${hasilTranslate}". Mengambil definisi...`;
+                    let responKamusKedua = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${hasilTranslate}`);
+                    
+                    if (!responKamusKedua.ok) throw new Error("Kata hasil terjemahan tidak ada di kamus bule.");
+                    
+                    const dataFinal = await responKamusKedua.json();
+                    translateBadge.innerText = `Diterjemahkan dari: "${kataInput}"`;
+                    translateBadge.style.display = "inline-block";
+                    
+                    tampilkanHasil(dataFinal[0]);
+                }
+            } catch (error) {
+                emptyTitle.innerText = "Kata Tidak Ditemukan";
+                emptyDesc.innerHTML = `<span class="error-text">Waduh! Kata "${kataInput}" gagal diproses. Pastikan ejaannya pas dan internetmu stabil ya Lek!</span>`;
+                emptyState.querySelector('i').className = "fas fa-question-circle";
+            } finally {
+                searchBtn.disabled = false;
+            }
+        }
+
+        function tampilkanHasil(dataAPI) {
+            emptyState.style.display = "none";
+            resultCard.style.display = "block";
+
+            displayWord.innerText = dataAPI.word;
+            let phoneticText = "";
+            audioSource = null;
+            
+            for(let i=0; i < dataAPI.phonetics.length; i++) {
+                if(dataAPI.phonetics[i].text) phoneticText = dataAPI.phonetics[i].text;
+                if(dataAPI.phonetics[i].audio) audioSource = dataAPI.phonetics[i].audio;
+            }
+            displayPhonetic.innerText = phoneticText;
+
+            if(audioSource) {
+                soundBtn.disabled = false;
+                soundBtn.style.opacity = "1";
+            } else {
+                soundBtn.disabled = false; 
+            }
+
+            let maknaUtama = dataAPI.meanings[0];
+            displayType.innerText = maknaUtama.partOfSpeech;
+            displayMeaning.innerText = maknaUtama.definitions[0].definition;
+            
+            if (maknaUtama.definitions[0].example) {
+                displayExample.innerText = `"${maknaUtama.definitions[0].example}"`;
+                displayExample.style.display = "block";
+                document.querySelectorAll('.section-title')[1].style.display = "block";
+            } else {
+                displayExample.style.display = "none";
+                document.querySelectorAll('.section-title')[1].style.display = "none"; 
+            }
+        }
+
+        soundBtn.addEventListener('click', function() {
+            if (audioSource) {
+                let audio = new Audio(audioSource);
+                audio.play();
+            } else {
+                let kataInggris = displayWord.innerText;
+                let suara = new SpeechSynthesisUtterance(kataInggris);
+                suara.lang = 'en-US'; 
+                window.speechSynthesis.speak(suara);
+            }
+        });
+    </script>
+</body>
+</html>
